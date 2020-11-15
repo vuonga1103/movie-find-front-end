@@ -11,6 +11,8 @@ A simple movie app that allows user to search, view, and like/dislike movies.
 * [Tools](#tools)
 
 <a name="getting-started"/>
+
+## Getting Started
 1. Install and run [Rails Backend API](https://github.com/vuonga1103/movie-find-back-end)
 2. Install [Node.js and npm](https://www.npmjs.com/get-npm)
 
@@ -26,7 +28,9 @@ A simple movie app that allows user to search, view, and like/dislike movies.
     ```$ npm start```
     
 <a name="features"/>
+
 ### Search for Movies
+
 ![Search Movies](https://im6.ezgif.com/tmp/ezgif-6-0c518a053251.gif)
 * Search among millions of movies via [TMDB database](https://www.themoviedb.org/)
 * See displayed title results (achieved via debounce) on input
@@ -37,7 +41,7 @@ A simple movie app that allows user to search, view, and like/dislike movies.
 * Like or dislike movie via clicking on thumbs-up or thumbs-down icon (data for thumbs-up and thumbs-down persisted backend API)
 
 ### Mobile Responsive
-![Mobile Responsive](https://im6.ezgif.com/tmp/ezgif-6-5c19f8a38c03.gif =300x)
+![Mobile Responsive](https://im6.ezgif.com/tmp/ezgif-6-5c19f8a38c03.gif)
 * Easily accessible on mobile devices
 
 <a name="tech-stack"/>
