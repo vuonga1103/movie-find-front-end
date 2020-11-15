@@ -8,6 +8,7 @@ import thumbUp from "../../images/up.png";
 import thumbUpFilled from "../../images/upfilled.png";
 import thumbDown from "../../images/down.png";
 import thumbDownFilled from "../../images/downfilled.png";
+import { LinkedCameraSharp } from "@material-ui/icons";
 
 const useStyle = makeStyles({
   container: {
@@ -42,7 +43,7 @@ const useStyle = makeStyles({
     height: "100%",
     "@media (max-width: 799px)": {
       backgroundColor: "rgba(32, 32, 32, 0.4)",
-      padding: "20px 10px 40px",
+      padding: "20px 10px 60px",
       borderRadius: 10,
     },
   },
@@ -51,23 +52,30 @@ const useStyle = makeStyles({
     bottom: 0,
     right: 20,
     display: "flex",
+    width: 160,
+    justifyContent: "space-between",
     "@media (max-width: 799px)": {
       right: 50,
-      bottom: 20,
+      bottom: 25,
     },
   },
   thumb: {
-    width: 50,
+    width: 35,
     marginBottom: 0,
+    cursor: "pointer",
   },
-  thumbContainer: { position: "relative" },
+  thumbContainer: {
+    position: "relative",
+    display: "flex",
+    width: 60,
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
   count: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    textAlign: "right",
+    fontSize: 16,
   },
 });
+
 export default function MovieContainer() {
   const { id } = useParams();
   const {
@@ -83,6 +91,10 @@ export default function MovieContainer() {
   } = useStyle();
 
   const [movie, setMovie] = useState({});
+  const [fillLike, setFillLike] = useState(false);
+  const [fillDislike, setFillDislike] = useState(false);
+  const [countLikes, setCountLikes] = useState(0);
+  const [countDislikes, setCountDislikes] = useState(0);
 
   useEffect(() => {
     async function fetchMovie(id) {
@@ -98,7 +110,112 @@ export default function MovieContainer() {
     }
 
     fetchMovie(id).then((result) => setMovie(result));
+
+    async function movieInBackendDB(id) {
+      try {
+        const response = await axios.get("http://localhost:4000/movies/" + id);
+
+        const { data } = await response;
+
+        if (!data.error) {
+          const { likes, dislikes } = data;
+          console.log(data);
+          setCountLikes(likes);
+          setCountDislikes(dislikes);
+        }
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    }
+
+    movieInBackendDB(id);
   }, [id]);
+
+  const handleDislikeClick = () => {
+    if (fillDislike) {
+      setFillDislike(false);
+      removeOneDislike();
+    } else {
+      if (fillLike) {
+        removeOneLike();
+        setFillLike(false);
+      }
+      setFillDislike(true);
+      addOneDislike();
+    }
+  };
+
+  const handleLikeClick = () => {
+    if (fillLike) {
+      setFillLike(false);
+      removeOneLike();
+    } else {
+      if (fillDislike) {
+        removeOneDislike();
+        setFillDislike(false);
+      }
+      setFillLike(true);
+      addOneLike();
+    }
+  };
+
+  const removeOneLike = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:4000/movies/${id}/remove-like`
+      );
+      const {
+        data: { likes },
+      } = await response;
+      setCountLikes(likes);
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+
+  const removeOneDislike = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:4000/movies/${id}/remove-dislike`
+      );
+      const {
+        data: { dislikes },
+      } = await response;
+      setCountDislikes(dislikes);
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+
+  const addOneDislike = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:4000/movies/${id}/add-dislike`
+      );
+      const {
+        data: { dislikes },
+      } = await response;
+
+      setCountDislikes(dislikes);
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+
+  const addOneLike = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:4000/movies/${id}/add-like`
+      );
+      const {
+        data: { likes },
+      } = await response;
+
+      setCountLikes(likes);
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
 
   const getBackdrop = () => {
     if (Object.keys(movie).length) {
@@ -153,17 +270,26 @@ export default function MovieContainer() {
 
           <div className={thumbs}>
             <div className={thumbContainer}>
-              <img src={thumbDown} className={thumb} alt="thumbs down icon" />{" "}
-              {/* <div className={count}>2</div> */}
+              <div onClick={handleDislikeClick}>
+                <img
+                  src={fillDislike ? thumbDownFilled : thumbDown}
+                  className={thumb}
+                  alt="thumbs down icon"
+                />
+              </div>
+
+              <div className={count}>{countDislikes}</div>
             </div>
             <div className={thumbContainer}>
-              <img
-                src={thumbUp}
-                className={thumb}
-                alt="thumbs up icon"
-                style={{ width: 45 }}
-              />{" "}
-              {/* <div className={count}>1</div> */}
+              <div onClick={handleLikeClick}>
+                <img
+                  src={fillLike ? thumbUpFilled : thumbUp}
+                  className={thumb}
+                  alt="thumbs up icon"
+                />
+              </div>
+
+              <div className={count}>{countLikes}</div>
             </div>
           </div>
         </div>
