@@ -1,9 +1,21 @@
-import React from 'react'
+import React from "react";
+import { AppBar, makeStyles, Toolbar } from "@material-ui/core";
+import Logo from "../LandingContainer/Logo/Logo";
 
+const useStyles = makeStyles({
+  header: {
+    backgroundColor: "rgba(32, 32, 32, 0.4)",
+    paddingLeft: 25,
+  },
+});
 export default function Header() {
+  const { header } = useStyles();
+
   return (
-    <div>
-      hello from header
-    </div>
-  )
+    <AppBar position="static" className={header}>
+      <Toolbar>
+        <Logo isSmall />
+      </Toolbar>
+    </AppBar>
+  );
 }
