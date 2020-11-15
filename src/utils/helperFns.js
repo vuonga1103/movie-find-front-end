@@ -6,6 +6,7 @@ const formatDate = (dateStr) => {
   const month = newDate.getMonth() + 1;
   const date = newDate.getDate();
   const year = newDate.getFullYear();
+
   return `${month}/${date}/${year}`;
 };
 

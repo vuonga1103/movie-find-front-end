@@ -17,6 +17,7 @@ export default function Search({ setMovies }) {
 
   const [searchTerm, setSearchTerm] = useState("");
 
+  // Wait 300 ms after onChange to fire handle function/fetch movies
   const handleSearchChange = debounce(async (newValue) => {
     if (newValue.length) {
       setSearchTerm(newValue);
@@ -30,11 +31,14 @@ export default function Search({ setMovies }) {
   async function fetchMovies(searchVal) {
     try {
       const response = await axios.get(
-        `http://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=` +
-          searchVal
+        `http://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchVal}`
       );
-      const { data } = await response;
-      return data.results;
+
+      const {
+        data: { results },
+      } = await response;
+
+      return results;
     } catch (error) {
       console.error("Could not fetch movies.", error);
     }
@@ -42,11 +46,13 @@ export default function Search({ setMovies }) {
 
   return (
     <SearchBar
-      className={search}
-      onChange={handleSearchChange}
-      value={searchTerm}
-      placeholder="Enter movie name..."
-      onCancelSearch={() => setMovies([])}
+      {...{
+        className: search,
+        onChange: handleSearchChange,
+        value: searchTerm,
+        placeholder: "Enter movie name...",
+        onCancelSearch: () => setMovies([]),
+      }}
     />
   );
 }

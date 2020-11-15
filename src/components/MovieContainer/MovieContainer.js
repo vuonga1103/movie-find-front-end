@@ -2,7 +2,7 @@ import { Grid, makeStyles, Typography, Link } from "@material-ui/core";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { API_KEY, BACKEND_BASE_URL } from "../../utils/constants";
+import { API_KEY, BACKEND_BASE_URL, opaqueGrey } from "../../utils/constants";
 import { getImageURL, formatDate } from "../../utils/helperFns";
 import thumbUp from "../../images/up.png";
 import thumbUpFilled from "../../images/upfilled.png";
@@ -12,11 +12,12 @@ import thumbDownFilled from "../../images/downfilled.png";
 const useStyle = makeStyles({
   container: {
     maxWidth: 900,
-    margin: "20px auto",
+    margin: "45px auto",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     position: "relative",
+    "@media (max-width: 799px)": { margin: "15px auto" },
   },
   backdrop: {
     width: "100%",
@@ -35,7 +36,7 @@ const useStyle = makeStyles({
     marginTop: 0,
     width: "100%",
     height: "100%",
-    "@media (min-width: 799px)": { backgroundColor: "rgba(32, 32, 32, 0.4)" },
+    "@media (min-width: 799px)": { backgroundColor: opaqueGrey },
   },
   title: {
     "@media (max-width: 799px)": { fontSize: 22 },
@@ -45,7 +46,7 @@ const useStyle = makeStyles({
     paddingBottom: 30,
     height: "100%",
     "@media (max-width: 799px)": {
-      backgroundColor: "rgba(32, 32, 32, 0.4)",
+      backgroundColor: opaqueGrey,
       padding: "20px 20px 60px",
       borderRadius: 10,
     },
@@ -94,11 +95,15 @@ export default function MovieContainer() {
     label,
   } = useStyle();
 
-  const [movie, setMovie] = useState({});
-  const [fillLike, setFillLike] = useState(false);
-  const [fillDislike, setFillDislike] = useState(false);
-  const [countLikes, setCountLikes] = useState(0);
-  const [countDislikes, setCountDislikes] = useState(0);
+  const [state, setState] = useState({
+    movie: {},
+    fillLike: false,
+    fillDislike: false,
+    countLikes: 0,
+    countDislikes: 0,
+  });
+
+  const { movie, fillLike, fillDislike, countLikes, countDislikes } = state;
 
   useEffect(() => {
     async function fetchMovie(id) {
@@ -113,7 +118,9 @@ export default function MovieContainer() {
       }
     }
 
-    fetchMovie(id).then((result) => setMovie(result));
+    fetchMovie(id).then((result) =>
+      setState((prevState) => ({ ...prevState, movie: result }))
+    );
 
     // Determines whether or not the movie has already been persisted in backend
     async function movieInBackendDB(id) {
@@ -129,37 +136,36 @@ export default function MovieContainer() {
     // If movie returned (no error), set likes/dislikes accordingly
     movieInBackendDB(id).then((result) => {
       if (!result.error) {
-        const { likes, dislikes } = result;
-        setCountLikes(likes);
-        setCountDislikes(dislikes);
+        const { likes: countLikes, dislikes: countDislikes } = result;
+        setState((prevState) => ({ ...prevState, countLikes, countDislikes }));
       }
     });
   }, [id]);
 
   const handleDislikeClick = () => {
     if (fillDislike) {
-      setFillDislike(false);
+      setState((prevState) => ({ ...prevState, fillDislike: false }));
       removeOneDislike();
     } else {
       if (fillLike) {
         removeOneLike();
-        setFillLike(false);
+        setState((prevState) => ({ ...prevState, fillLike: false }));
       }
-      setFillDislike(true);
+      setState((prevState) => ({ ...prevState, fillDislike: true }));
       addOneDislike();
     }
   };
 
   const handleLikeClick = () => {
     if (fillLike) {
-      setFillLike(false);
+      setState((prevState) => ({ ...prevState, fillLike: false }));
       removeOneLike();
     } else {
       if (fillDislike) {
         removeOneDislike();
-        setFillDislike(false);
+        setState((prevState) => ({ ...prevState, fillDislike: false }));
       }
-      setFillLike(true);
+      setState((prevState) => ({ ...prevState, fillLike: true }));
       addOneLike();
     }
   };
@@ -170,9 +176,9 @@ export default function MovieContainer() {
         `http://localhost:4000/movies/${id}/remove-like`
       );
       const {
-        data: { likes },
+        data: { likes: countLikes },
       } = await response;
-      setCountLikes(likes);
+      setState((prevState) => ({ ...prevState, countLikes }));
     } catch (error) {
       console.log("Error:", error);
     }
@@ -184,9 +190,9 @@ export default function MovieContainer() {
         BACKEND_BASE_URL + id + "/remove-dislike"
       );
       const {
-        data: { dislikes },
+        data: { dislikes: countDislikes },
       } = await response;
-      setCountDislikes(dislikes);
+      setState((prevState) => ({ ...prevState, countDislikes }));
     } catch (error) {
       console.log("Error:", error);
     }
@@ -197,10 +203,10 @@ export default function MovieContainer() {
       const response = await axios.post(BACKEND_BASE_URL + id + "/add-dislike");
 
       const {
-        data: { dislikes },
+        data: { dislikes: countDislikes },
       } = await response;
 
-      setCountDislikes(dislikes);
+      setState((prevState) => ({ ...prevState, countDislikes }));
     } catch (error) {
       console.log("Error:", error);
     }
@@ -210,10 +216,10 @@ export default function MovieContainer() {
     try {
       const response = await axios.post(BACKEND_BASE_URL + id + "/add-like");
       const {
-        data: { likes },
+        data: { likes: countLikes },
       } = await response;
 
-      setCountLikes(likes);
+      setState((prevState) => ({ ...prevState, countLikes }));
     } catch (error) {
       console.log("Error:", error);
     }
@@ -224,7 +230,9 @@ export default function MovieContainer() {
       const { backdrop_path, original_title } = movie;
       const imgURL = getImageURL(backdrop_path);
 
-      return <img src={imgURL} alt={original_title} className={backdrop} />;
+      return (
+        <img {...{ src: imgURL, alt: original_title, className: backdrop }} />
+      );
     }
   };
 
@@ -233,7 +241,7 @@ export default function MovieContainer() {
       const { poster_path, original_title } = movie;
       const imgURL = getImageURL(poster_path, 200);
 
-      return <img src={imgURL} alt={original_title} />;
+      return <img {...{ src: imgURL, alt: original_title }} />;
     }
   };
 
@@ -247,10 +255,11 @@ export default function MovieContainer() {
         runtime,
         vote_average,
       } = movie;
+
       return (
         <div className={details}>
-          <Typography variant="h4" className={title}>
-            <Link color="inherit" href={url}>
+          <Typography {...{ variant: "h4", className: title }}>
+            <Link {...{ color: "inherit", href: url }}>
               {original_title} {`(${release_date.slice(0, 4)})`}
             </Link>
           </Typography>
@@ -306,17 +315,19 @@ export default function MovieContainer() {
     <div className={container}>
       {getBackdrop()}
       <Grid
-        className={infoContainer}
         container
-        direction="row"
-        justify="center"
-        alignItems="flex-start"
-        spacing={4}
+        {...{
+          className: infoContainer,
+          direction: "row",
+          justify: "center",
+          alignItems: "flex-start",
+          spacing: 4,
+        }}
       >
-        <Grid item xs={12} sm={4}>
+        <Grid item {...{ xs: 12, sm: 4 }}>
           {getPoster()}
         </Grid>
-        <Grid item xs={12} sm={8}>
+        <Grid item {...{ xs: 12, sm: 8 }}>
           {getDetails()}
         </Grid>
       </Grid>

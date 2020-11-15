@@ -22,10 +22,12 @@ export default function Logo({ isSmall }) {
   return (
     <div className={`${logo} ${isSmall && small}`}>
       <Link
-        to="/"
-        component={RouterLink}
-        color="inherit"
-        style={{ textDecoration: "none" }}
+        {...{
+          to: "/",
+          component: RouterLink,
+          color: "inherit",
+          style: { textDecoration: "none" },
+        }}
       >
         moviefind
       </Link>
