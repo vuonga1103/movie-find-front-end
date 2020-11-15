@@ -31,18 +31,18 @@ A simple movie app that allows user to search, view, and like/dislike movies.
 
 ### Search for Movies
 
-![](https://im6.ezgif.com/tmp/ezgif-6-227c2077e9e7.gif)
+![Search Movies](https://im6.ezgif.com/tmp/ezgif-6-227c2077e9e7.gif)
 
 * Search among millions of movies via [TMDB database](https://www.themoviedb.org/)
 * See displayed title results (achieved via debounce) on input
 
 ### See Movie Details & Like/Dislike
-![](https://im6.ezgif.com/tmp/ezgif-6-6c4b0293bca0.gif)
+![See Movie Details](https://im6.ezgif.com/tmp/ezgif-6-57a313ebc3b1.gif)
 * See movie details, including title, release date/year, description
 * Like or dislike movie via clicking on thumbs-up or thumbs-down icon (data for thumbs-up and thumbs-down persisted backend API)
 
 ### Mobile Responsive
-![](https://im6.ezgif.com/tmp/ezgif-6-5c19f8a38c03.gif)
+![Mobile Responsive](https://im6.ezgif.com/tmp/ezgif-6-70b4bea29b2a.gif)
 * Easily accessible on mobile devices
 
 <a name="tech-stack"/>
