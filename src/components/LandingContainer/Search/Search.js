@@ -3,6 +3,7 @@ import SearchBar from "material-ui-search-bar";
 import { makeStyles } from "@material-ui/core";
 import axios from "axios";
 import { API_KEY } from "../../../utils/constants";
+import { debounce } from "lodash";
 
 const useStyle = makeStyles({
   search: {
@@ -16,7 +17,7 @@ export default function Search({ setMovies }) {
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearchChange = async (newValue) => {
+  const handleSearchChange = debounce(async (newValue) => {
     if (newValue.length) {
       setSearchTerm(newValue);
       const result = await fetchMovies(newValue);
@@ -24,7 +25,7 @@ export default function Search({ setMovies }) {
     } else {
       setMovies([]);
     }
-  };
+  }, 300);
 
   async function fetchMovies(searchVal) {
     try {

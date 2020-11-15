@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { API_KEY, BACKEND_BASE_URL } from "../../utils/constants";
-import { getImageURL } from "../../utils/helperFns";
+import { getImageURL, formatDate } from "../../utils/helperFns";
 import thumbUp from "../../images/up.png";
 import thumbUpFilled from "../../images/upfilled.png";
 import thumbDown from "../../images/down.png";
@@ -26,8 +26,12 @@ const useStyle = makeStyles({
     borderRadius: "20px 20px 0 0",
     "@media (max-width: 799px)": { display: "none" },
   },
+  label: {
+    color: "#c0c0c0",
+    fontSize: 16,
+  },
   infoContainer: {
-    padding: "20px",
+    padding: "30px 20px",
     marginTop: 0,
     width: "100%",
     height: "100%",
@@ -55,7 +59,7 @@ const useStyle = makeStyles({
     justifyContent: "space-between",
     "@media (max-width: 799px)": {
       right: 50,
-      bottom: 25,
+      bottom: 40,
     },
   },
   thumb: {
@@ -87,6 +91,7 @@ export default function MovieContainer() {
     thumb,
     thumbContainer,
     count,
+    label,
   } = useStyle();
 
   const [movie, setMovie] = useState({});
@@ -252,17 +257,20 @@ export default function MovieContainer() {
 
           <div style={{ textAlign: "left" }}>
             <p>
-              <strong>Released: </strong>
-              {release_date}
+              <span className={label}>Released: </span>
+              {formatDate(release_date)}
               <br />
-              <strong>Runtime: </strong>
-              {runtime} min
+              <span className={label}>Runtime: </span>
+              {runtime} minutes
               <br />
-              <strong>Rating: </strong>
-              {vote_average}/10
+              <span className={label}>Rating: </span>
+              {vote_average}
             </p>
 
-            <p>{overview}</p>
+            <p>
+              <span className={label}>Overview: </span>
+              {overview}
+            </p>
           </div>
 
           <div className={thumbs}>
