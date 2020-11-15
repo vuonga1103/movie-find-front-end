@@ -2,13 +2,12 @@ import { Grid, makeStyles, Typography, Link } from "@material-ui/core";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { API_KEY } from "../../utils/constants";
+import { API_KEY, BACKEND_BASE_URL } from "../../utils/constants";
 import { getImageURL } from "../../utils/helperFns";
 import thumbUp from "../../images/up.png";
 import thumbUpFilled from "../../images/upfilled.png";
 import thumbDown from "../../images/down.png";
 import thumbDownFilled from "../../images/downfilled.png";
-import { LinkedCameraSharp } from "@material-ui/icons";
 
 const useStyle = makeStyles({
   container: {
@@ -111,24 +110,25 @@ export default function MovieContainer() {
 
     fetchMovie(id).then((result) => setMovie(result));
 
+    // Determines whether or not the movie has already been persisted in backend
     async function movieInBackendDB(id) {
       try {
-        const response = await axios.get("http://localhost:4000/movies/" + id);
-
+        const response = await axios.get(BACKEND_BASE_URL + id);
         const { data } = await response;
-
-        if (!data.error) {
-          const { likes, dislikes } = data;
-          console.log(data);
-          setCountLikes(likes);
-          setCountDislikes(dislikes);
-        }
+        return data;
       } catch (error) {
         console.log("Error:", error);
       }
     }
 
-    movieInBackendDB(id);
+    // If movie returned (no error), set likes/dislikes accordingly
+    movieInBackendDB(id).then((result) => {
+      if (!result.error) {
+        const { likes, dislikes } = result;
+        setCountLikes(likes);
+        setCountDislikes(dislikes);
+      }
+    });
   }, [id]);
 
   const handleDislikeClick = () => {
@@ -176,7 +176,7 @@ export default function MovieContainer() {
   const removeOneDislike = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:4000/movies/${id}/remove-dislike`
+        BACKEND_BASE_URL + id + "/remove-dislike"
       );
       const {
         data: { dislikes },
@@ -189,9 +189,8 @@ export default function MovieContainer() {
 
   const addOneDislike = async () => {
     try {
-      const response = await axios.post(
-        `http://localhost:4000/movies/${id}/add-dislike`
-      );
+      const response = await axios.post(BACKEND_BASE_URL + id + "/add-dislike");
+
       const {
         data: { dislikes },
       } = await response;
@@ -204,9 +203,7 @@ export default function MovieContainer() {
 
   const addOneLike = async () => {
     try {
-      const response = await axios.post(
-        `http://localhost:4000/movies/${id}/add-like`
-      );
+      const response = await axios.post(BACKEND_BASE_URL + id + "/add-like");
       const {
         data: { likes },
       } = await response;
