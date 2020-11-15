@@ -30,6 +30,7 @@ A simple movie app that allows user to search, view, and like/dislike movies.
     ```$ npm start```
     
 <a name="features"/>
+
 ## Features
 
 ### Search for Movies
