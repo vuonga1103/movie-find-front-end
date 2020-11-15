@@ -31,7 +31,8 @@ A simple movie app that allows user to search, view, and like/dislike movies.
 
 ### Search for Movies
 
-![Search Movies](https://im6.ezgif.com/tmp/ezgif-6-0c518a053251.gif)
+<img src="https://im6.ezgif.com/tmp/ezgif-6-0c518a053251.gif" alt="search movies" />
+
 * Search among millions of movies via [TMDB database](https://www.themoviedb.org/)
 * See displayed title results (achieved via debounce) on input
 
