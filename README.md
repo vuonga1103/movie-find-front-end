@@ -2,6 +2,8 @@
 
 A simple movie app that allows user to search, view, and like/dislike movies.
 
+![MovieFind](https://i.ibb.co/kgW8njk/Screen-Shot-2020-11-15-at-3-33-36-PM.png)
+
 [Link to Backend API](https://github.com/vuonga1103/movie-find-back-end)
 
 ## Table of Contents
