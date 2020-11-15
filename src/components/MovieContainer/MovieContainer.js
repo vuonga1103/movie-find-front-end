@@ -42,7 +42,7 @@ const useStyle = makeStyles({
     height: "100%",
     "@media (max-width: 799px)": {
       backgroundColor: "rgba(32, 32, 32, 0.4)",
-      padding: "20px 10px 60px",
+      padding: "20px 20px 60px",
       borderRadius: 10,
     },
   },
