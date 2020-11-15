@@ -30,6 +30,7 @@ A simple movie app that allows user to search, view, and like/dislike movies.
     ```$ npm start```
     
 <a name="features"/>
+## Features
 
 ### Search for Movies
 
@@ -44,7 +45,7 @@ A simple movie app that allows user to search, view, and like/dislike movies.
 * Like or dislike movie via clicking on thumbs-up or thumbs-down icon (data for thumbs-up and thumbs-down persisted backend API)
 
 ### Mobile Responsive
-![Mobile Responsive](https://im6.ezgif.com/tmp/ezgif-6-70b4bea29b2a.gif)
+![Mobile Responsive](https://im6.ezgif.com/tmp/ezgif-6-8d08d9ac3a6c.gif
 * Easily accessible on mobile devices
 
 <a name="tech-stack"/>
