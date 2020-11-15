@@ -6,6 +6,7 @@ const useStyles = makeStyles({
   header: {
     backgroundColor: "rgba(32, 32, 32, 0.4)",
     paddingLeft: 25,
+    "@media (max-width: 799px)": { paddingLeft: 0 },
   },
 });
 export default function Header() {

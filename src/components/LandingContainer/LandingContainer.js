@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import Logo from "./Logo/Logo";
 import ResultsContainer from "./ResultsContainer/ResultsContainer";
 import Search from "./Search/Search";
@@ -13,19 +13,22 @@ const useStyles = makeStyles({
   },
   searchContainer: {
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 20,
   },
 });
+
 export default function LandingContainer() {
   const { container, searchContainer } = useStyles();
+
+  const [movies, setMovies] = useState([]);
 
   return (
     <div className={container}>
       <Logo />
       <div className={searchContainer}>
-        <Search />
+        <Search setMovies={setMovies} />
       </div>
-      <ResultsContainer />
+      <ResultsContainer movies={movies} />
     </div>
   );
 }
