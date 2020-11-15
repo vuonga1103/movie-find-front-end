@@ -43,7 +43,7 @@ A simple movie app that allows user to search, view, and like/dislike movies.
 ### See Movie Details & Like/Dislike
 ![See Movie Details](https://im6.ezgif.com/tmp/ezgif-6-57a313ebc3b1.gif)
 * See movie details, including title, release date/year, description
-* Like or dislike movie via clicking on thumbs-up or thumbs-down icon (data for thumbs-up and thumbs-down persisted backend API)
+* Like or dislike movie via clicking on thumbs-up or thumbs-down icon (data for thumbs-up and thumbs-down persisted to backend API)
 
 ### Mobile Responsive
 ![Mobile Responsive](https://im6.ezgif.com/tmp/ezgif-6-8d08d9ac3a6c.gif)
