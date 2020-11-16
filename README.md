@@ -1,6 +1,6 @@
 # MovieFind
 
-![DEMO](https://youtu.be/6yIvV6Rtz44)
+[DEMO](https://youtu.be/6yIvV6Rtz44)
 
 A simple movie app that allows user to search, view, and like/dislike movies.
 
