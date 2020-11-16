@@ -35,18 +35,21 @@ A simple movie app that allows user to search, view, and like/dislike movies.
 
 ### Search for Movies
 
-![Search Movies](https://i.ibb.co/gMF7T13/ezgif-3-fe7de7aef3b8.gif)
+![Search Movies](https://i.ibb.co/mbBFSJq/Screen-Shot-2020-11-15-at-7-41-32-PM.png)
 
 * Search among millions of movies via [TMDB database](https://www.themoviedb.org/)
 * See displayed title results (achieved via debounce) on input
 
 ### See Movie Details & Like/Dislike
-![See Movie Details](https://i.ibb.co/HGqx3rX/Nov-15-2020-19-20-18-min.gif)
+![See Movie Details](https://i.ibb.co/zb31rtB/Screen-Shot-2020-11-15-at-7-42-25-PM.png)
 * See movie details, including title, release date/year, description
 * Like or dislike movie via clicking on thumbs-up or thumbs-down icon (data for thumbs-up and thumbs-down persisted to backend API)
 
 ### Mobile Responsive
-![Mobile Responsive](https://i.ibb.co/hdWbmfY/Nov-15-2020-19-23-37-min.gif)
+![Mobile Responsive](https://i.ibb.co/NTFtfV8/Screen-Shot-2020-11-15-at-7-43-47-PM.png)
+![Mobile Responsive](https://i.ibb.co/NYcPZGj/Screen-Shot-2020-11-15-at-7-44-34-PM.png)
+![Mobile Responsive](https://i.ibb.co/TkHp2Yx/Screen-Shot-2020-11-15-at-7-44-49-PM.png)
+
 * Easily accessible on mobile devices
 
 <a name="tech-stack"/>
