@@ -46,8 +46,8 @@ A simple movie app that allows user to search, view, and like/dislike movies.
 * Like or dislike movie via clicking on thumbs-up or thumbs-down icon (data for thumbs-up and thumbs-down persisted to backend API)
 
 ### Mobile Responsive
-<span><img src="https://i.ibb.co/NTFtfV8/Screen-Shot-2020-11-15-at-7-43-47-PM.png" width="200" /></span><span><img src="https://i.ibb.co/NYcPZGj/Screen-Shot-2020-11-15-at-7-44-34-PM.png" width="200" />
-</span><span><img src="https://i.ibb.co/TkHp2Yx/Screen-Shot-2020-11-15-at-7-44-49-PM.png" width="200" />
+<span><img src="https://i.ibb.co/NTFtfV8/Screen-Shot-2020-11-15-at-7-43-47-PM.png" width="200" /></span> <span><img src="https://i.ibb.co/NYcPZGj/Screen-Shot-2020-11-15-at-7-44-34-PM.png" width="200" />
+</span> <span><img src="https://i.ibb.co/TkHp2Yx/Screen-Shot-2020-11-15-at-7-44-49-PM.png" width="200" />
 </span>
 
 
